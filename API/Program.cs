@@ -16,6 +16,8 @@ builder.Services.AddDbContext<StoreContext>(opt =>
    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddCors();
+
 //builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
    //.AddNegotiate();
 
@@ -37,6 +39,12 @@ if (app.Environment.IsDevelopment())
 //app.UseHttpsRedirection();
 
 //app.UseAuthentication();
+
+app.UseCors(opt =>
+{
+    opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+});
+
 app.UseAuthorization();
 
 app.MapControllers();
