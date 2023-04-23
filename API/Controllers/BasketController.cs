@@ -3,6 +3,7 @@ using API.DTOs;
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 
 namespace API.Controllers
 {
@@ -72,13 +73,13 @@ namespace API.Controllers
             return await context.Baskets
                             .Include(i => i.Items)
                             .ThenInclude(p => p.Product)
-                            .FirstOrDefaultAsync(x => x.BuyerId == Request.Cookies["buyedId"]);
+                            .FirstOrDefaultAsync(x => x.BuyerId == Request.Cookies["buyerId"]);
         }
 
         private Basket CreateBasket()
         {
             var buyedId = Guid.NewGuid().ToString();
-            var cookieOptions = new CookieOptions { IsEssential = true, Expires = DateTime.Now.AddDays(1) };
+            var cookieOptions = new CookieOptions { IsEssential = true, Expires = DateTime.Now.AddDays(30) };
             Response.Cookies.Append("buyerId", buyedId, cookieOptions);
             var basket = new Basket { BuyerId = buyedId };
             context.Baskets.Add(basket);

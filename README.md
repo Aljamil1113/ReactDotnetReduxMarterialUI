@@ -6,6 +6,8 @@ Add-Migration {name} -o Data/Migrations
 Remove-Migration
 
 # React
+HTTPS=true npm start
+
 npx create-react-app client --template typescript --use-npm
 
 json2ts.com
@@ -19,6 +21,9 @@ npm install react-router-dom
 npm install axios
 
 npm install react-toastify
+
+npm install @mui/lab
+
 
 
 
