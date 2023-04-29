@@ -1,27 +1,41 @@
-import { useEffect, useState } from "react";
-import { Basket } from "../../app/models/basket";
+ import { Box, Button, Grid, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Add, Delete, Remove } from "@mui/icons-material";
+import { useStoreContext } from "../../app/context/StoreContext";
+import { useState } from "react";
 import agent from "../../app/api/agent";
-import LoadingComponent from "../../app/layout/LoadingComponent";
-import { Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-import { Delete } from "@mui/icons-material";
+import { error } from "console";
+import { LoadingButton } from "@mui/lab";
+import BasketSummary from "./BasketSummary";
+import { Link } from "react-router-dom";
 
 export default function BasketPage() {
-    const [loading, setLoading] = useState(true);
-    const [basket, setBasket] = useState<Basket | null>(null);
+    const {basket, setBasket, removeItem} = useStoreContext();
+    const [status, setStatus] = useState({
+        loading: false,
+        name: ''
+    });
 
-    useEffect(() => {
-       agent.Basket.get()
+    function handleAddItem(productId: number, name: string) {
+        setStatus({loading: true, name});
+        agent.Basket.addItem(productId)
             .then(basket => setBasket(basket))
             .catch(error => console.log(error))
-            .finally(() => setLoading(false)) 
-    }, [])
+            .finally(() => setStatus({loading: false, name: ''}))
+    }
 
-    if (loading) return <LoadingComponent message="Loading basket..." />
+    function handleRemoveItem(productId: number, quantity = 1, name: string) {
+        setStatus({loading: true, name});
+        agent.Basket.removeItem(productId, quantity)
+            .then(() => removeItem(productId, quantity))
+            .catch(error => console.log(error))
+            .finally(() => setStatus({loading: false, name: ''}))
+    }
 
     if (!basket) return <Typography variant="h3">Your basket is empty...</Typography>
 
     return (
-        <TableContainer component={Paper}>
+        <>
+          <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }}>
             <TableHead>
                 <TableRow>
@@ -45,17 +59,42 @@ export default function BasketPage() {
                             </Box>
                         </TableCell>
                         <TableCell align="right">${(item.price / 100).toFixed(2)}</TableCell>
-                        <TableCell align="center">{item.quantity}</TableCell>
+                        <TableCell align="center">
+                            <LoadingButton 
+                                loading={status.loading && status.name === 'rem' + item.productId} 
+                                onClick={() => handleRemoveItem(item.productId, 1, 'rem' + item.productId)} color='error'>
+                                <Remove />
+                            </LoadingButton>
+                                {item.quantity}
+                            <LoadingButton loading={status.loading && status.name === 'add' + item.productId} 
+                                            onClick={() => handleAddItem(item.productId, 'add' + item.productId)} color='secondary'>
+                                <Add />
+                            </LoadingButton>
+                        </TableCell>
                         <TableCell align="right">${((item.price / 100) * item.quantity).toFixed(2)}</TableCell>
                         <TableCell>
-                            <IconButton color='error'>
+                            <LoadingButton 
+                            loading={status.loading && status.name === 'del' + item.productId} 
+                            onClick={() => handleRemoveItem(item.productId, item.quantity, 'del' + item.productId)} color='error'>
                                 <Delete />
-                            </IconButton>
+                            </LoadingButton>
                         </TableCell>
                     </TableRow>
                 ))}
             </TableBody>
         </Table>
     </TableContainer>
+    <Grid container>
+        <Grid item xs={6} />
+        <Grid item xs={6}>
+            <BasketSummary />
+            <Button component={Link} to='/checkout'
+            variant='contained' size='large' fullWidth
+            >
+                Check Out
+            </Button>
+        </Grid>
+    </Grid>
+    </>  
     )
 }
