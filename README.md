@@ -24,6 +24,9 @@ npm install react-toastify
 
 npm install @mui/lab
 
+npm install redux react-redux
+npm install @reduxjs/toolkit
+
 
 
 
