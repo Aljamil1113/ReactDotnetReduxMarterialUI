@@ -27,7 +27,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BasketDto>> AddItemTOBasket(int productId, int quantity)
+        public async Task<ActionResult<BasketDto>> AddItemToBasket(int productId, int quantity)
         {
             //get basket
             var basket = await RetrieveBasket();
@@ -78,10 +78,10 @@ namespace API.Controllers
 
         private Basket CreateBasket()
         {
-            var buyedId = Guid.NewGuid().ToString();
+            var buyerId = Guid.NewGuid().ToString();
             var cookieOptions = new CookieOptions { IsEssential = true, Expires = DateTime.Now.AddDays(30) };
-            Response.Cookies.Append("buyerId", buyedId, cookieOptions);
-            var basket = new Basket { BuyerId = buyedId };
+            Response.Cookies.Append("buyerId", buyerId, cookieOptions);
+            var basket = new Basket { BuyerId = buyerId };
             context.Baskets.Add(basket);
             return basket;
         }
@@ -100,7 +100,7 @@ namespace API.Controllers
                     PictureUrl = item.Product.PictureUrl,
                     Type = item.Product.Type,
                     Brand = item.Product.Brand,
-                    Quantity = item.Product.Quantity
+                    Quantity = item.Quantity
                 }).ToList()
             };
         }
