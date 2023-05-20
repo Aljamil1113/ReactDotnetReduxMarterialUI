@@ -80,10 +80,13 @@ namespace API.Controllers
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
 
+            var userBasket = await RetrieveBasket(User.Identity.Name);
+
             return new UserDto
             {
                 Email = user.Email,
-                Token = await tokenService.GenerateToken(user)
+                Token = await tokenService.GenerateToken(user),
+                Basket = userBasket?.MapBasketToDto()
             };
         }
 
