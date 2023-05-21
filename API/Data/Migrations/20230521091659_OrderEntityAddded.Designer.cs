@@ -4,6 +4,7 @@ using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20230521091659_OrderEntityAddded")]
+    partial class OrderEntityAddded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,14 +185,14 @@ namespace API.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "2af4c99d-09bb-4875-9b92-86d4d914f1be",
+                            ConcurrencyStamp = "7d9809d9-7242-4c03-a48f-3025a21614d9",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "df11e083-ab43-4bce-8dc2-b32319b7ed29",
+                            ConcurrencyStamp = "df74ea62-beb0-4e7f-8775-14e33e8b57ff",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -438,6 +440,15 @@ namespace API.Data.Migrations
 
                             b1.Property<string>("FullName")
                                 .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("PictureUrl")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<int>("ProductId")
+                                .HasColumnType("int");
 
                             b1.Property<string>("State")
                                 .HasColumnType("nvarchar(max)");
