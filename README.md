@@ -28,6 +28,9 @@ npm install @mui/lab
 npm install redux react-redux
 npm install @reduxjs/toolkit
 
+npm install react-hook-form
+npm install @hookform/resolvers yup
+
 
 
 
