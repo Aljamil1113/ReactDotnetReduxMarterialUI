@@ -31,6 +31,8 @@ npm install @reduxjs/toolkit
 npm install react-hook-form
 npm install @hookform/resolvers yup
 
+npm install --save @stripe/react-stripe-js @stripe/stripe-js
+
 
 
 
