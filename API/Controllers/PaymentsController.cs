@@ -15,11 +15,11 @@ namespace API.Controllers
     {
         private readonly PaymentService paymentService;
         private readonly StoreContext context;
-        //private readonly IConfiguration config;
+        private readonly IConfiguration config;
         public PaymentsController(PaymentService _paymentService, StoreContext _context,
             IConfiguration _config)
         {
-            //config = _config;
+            config = _config;
             context = _context;
             paymentService = _paymentService;
         }
@@ -49,7 +49,7 @@ namespace API.Controllers
 
             return basket.MapBasketToDto();
         }
-        /*
+  
         [HttpPost("webhook")]
         public async Task<ActionResult> StripeWebhook()
         {
@@ -69,6 +69,5 @@ namespace API.Controllers
 
             return new EmptyResult();
         }
-        */
     }
 }

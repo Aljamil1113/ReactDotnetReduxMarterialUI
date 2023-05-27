@@ -33,6 +33,11 @@ npm install @hookform/resolvers yup
 
 npm install --save @stripe/react-stripe-js @stripe/stripe-js
 
+#STRIPE
+stripe login
+stripe listen
+stripe listen -f http://localhost:5019/api/payments/webhook -e charge.succeeded
+
 
 
 
