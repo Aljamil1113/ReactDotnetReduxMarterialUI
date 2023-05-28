@@ -11,6 +11,8 @@ import { router } from './app/router/Routes';
 import { store } from './app/store/configureStore';
 import { Provider } from 'react-redux';
 import { fetchProductsAsync } from './features/catalog/catalogSlice';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 
 const root = ReactDOM.createRoot(

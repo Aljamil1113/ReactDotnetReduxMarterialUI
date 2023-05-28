@@ -14,6 +14,8 @@ json2ts.com
 mui.com
 jwt.io
 
+https://delinea.com/resources/password-generator-it-tool
+
 npm install @mui/material @emotion/react @emotion/styled
 npm install @fontsource/roboto
 npm install @mui/icons-material
@@ -33,6 +35,8 @@ npm install @hookform/resolvers yup
 
 npm install --save @stripe/react-stripe-js @stripe/stripe-js
 
+npm install react-slick @types/react-slick slick-carousel
+
 #STRIPE COMMANDS
 stripe login
 stripe listen
@@ -45,6 +49,36 @@ dotnet user-secrets set "StripeSettings:PublishableKey" "pk_test_51MYsW4L9cMDwJt
 dotnet user-secrets set "StripeSettings:SecretKey" "sk_test_51MYsW4L9cMDwJt2vX2KXJcbYl6zeB12gYvUXvOe282lB5TcsOy3BSW9Abeo324mCaWXIVJsNMyfIcTOd8MISwoK700oZWabh4c"
 dotnet user-secrets set "StripeSettings:WhSecret" "whsec_509d81c4a68505e7c3e1e240cb84584e0f21a961264e800024d8565efc6746c0"
 dotnet user-secrets list
+
+
+#PUBLISHING
+
+npm run build
+npm install -g serve
+  serve -s ..\API\wwwroot
+  
+docker run --name dev -e POSTGRES_USER=appuser -e POSTGRES_PASSWORD=secret -p 5432:5432 -d postgres:latest
+
+docker build -t aljamil1113/restore .
+docker run --rm -it -p 8080:80 aljamil1113/restore
+
+docker login
+docker push aljamil1113/restore:latest
+
+flyctl launch --image aljamil1113/restore:latest
+
+flyctl secrets list
+flyctl secrets set StripeSettings__SecretKey=sk_test_51MYsW4L9cMDwJt2vX2KXJcbYl6zeB12gYvUXvOe282lB5TcsOy3BSW9Abeo324mCaWXIVJsNMyfIcTOd8MISwoK700oZWabh4c
+flyctl secrets set StripeSettings__WhSecret=whsec_509d81c4a68505e7c3e1e240cb84584e0f21a961264e800024d8565efc6746c0
+flyctl secrets set JWTSettings__TokenKey=ZQUrV3DpNy9yFsStPbeRVmS7fItaaueW
+
+flyctl deploy
+
+fly logs -a restore
+
+
+
+
 
 
 
