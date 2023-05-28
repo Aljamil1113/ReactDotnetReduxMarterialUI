@@ -77,6 +77,15 @@ flyctl deploy
 fly logs -a restore
 
 
+#INVENTORYMODULES
+
+dotnet user-secrets set "Cloudinary:CloudName" "dvbaicnsy"
+dotnet user-secrets set "Cloudinary:ApiKey" "653932124153488"
+dotnet user-secrets set "Cloudinary:ApiSecret" "9cwxO2jxqtR-rXdpyGm_4SvanE4"
+dotnet user-secrets list
+
+
+
 
 
 

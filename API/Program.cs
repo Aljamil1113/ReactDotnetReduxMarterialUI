@@ -1,6 +1,7 @@
 using API.Data;
 using API.Entities;
 using API.Middleware;
+using API.RequestHelpers;
 using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.Negotiate;
@@ -15,6 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -44,7 +46,9 @@ builder.Services.AddSwaggerGen(c =>
 
 string connString;
 if (builder.Environment.IsDevelopment())
+{
     connString = builder.Configuration.GetConnectionString("DefaultConnection");
+}
 else
 {
     // Use connection string provided at runtime by FlyIO.
@@ -95,8 +99,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<PaymentService>();
+builder.Services.AddScoped<ImageService>();
 //builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
-   //.AddNegotiate();
+//.AddNegotiate();
 
 //builder.Services.AddAuthorization(options =>
 //{
