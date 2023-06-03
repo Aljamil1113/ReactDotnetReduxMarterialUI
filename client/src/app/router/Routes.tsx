@@ -19,11 +19,17 @@ export const router = createBrowserRouter([
         path: '/',
         element: <App />,
         children: [
+            // need login
             {element: <RequireAuth />, children: [
                 {path: 'checkout', element: <CheckoutWrapper />},
                 {path: 'orders', element: <Orders /> },
                 {path: 'inventory', element: <Inventory />}
             ]},
+            // for admin only
+            {element: <RequireAuth roles={['Admin']}/>, children: [
+                {path: 'inventory', element: <Inventory />}
+            ]},
+            //
             {path: 'catalog', element: <Catalog />},
             {path: 'catalog/:id', element: <ProductDetails/>},
             {path: 'about', element: <AboutPage />},

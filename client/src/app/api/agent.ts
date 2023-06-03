@@ -44,6 +44,9 @@ axios.interceptors.response.use(async response => {
         case 401:
             toast.error(data.title);
             break;
+        case 403: 
+            toast.error('You are not authorized for this!');
+            break;
         // case 404:
         //     router.navigate('/not-found', {state: {error: data}});
         //     break;
