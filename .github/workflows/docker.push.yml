@@ -29,11 +29,14 @@ jobs:
           context: "{{defaultContext}}:API"
           push: true
           tags: aljamil1113/restore:latest
-  deploy:
-    needs: docker
-    name: Deploy app
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
+   
+   #Just comment for deployment cause no credit card for fly.io
+          
+  # deploy:
+  #  needs: docker
+  #  name: Deploy app
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - uses: actions/checkout@v3
+   #   - uses: superfly/flyctl-actions/setup-flyctl@master
+   #   - run: flyctl deploy --remote-only

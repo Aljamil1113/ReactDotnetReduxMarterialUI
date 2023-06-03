@@ -14,6 +14,8 @@ processes = []
 [env]
   ASPNETCORE_URLS="http://+:8080"
   StripeSettings__PublishableKey="pk_test_51MYsW4L9cMDwJt2vwb0wYTIWJHpfFy5rmUPMwTy96DvNHNWWWRrYIDxTuPNCxGDV7gWLdutOaFV0fix7Sx6BV7zf00zA9xoVLr"
+  flyctl secrets set Cloudinary___CloudName=""
+  flyctl secrets set Cloudinary___ApiKey=""
 
 [experimental]
   auto_rollback = true
